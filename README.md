@@ -1,17 +1,17 @@
 # ATM
 
 ## 实验环境
-1、操作系统`Deepin` 15.4
-// 安装Deepin
-https://www.deepin.org/download/
-2、数据库`MySQL` 5.7.15
-// 安装MySQL
-sudo apt-get install mysql-server mysql-client
-// 安装MySQL++库
-sudo apt-get install libmysql++-dev
-3、编译器`G++` 6.2.0
-// 安装G++
-sudo apt-get install g++
+1、操作系统`Deepin` 15.4  
+// 安装Deepin  
+https://www.deepin.org/download/  
+2、数据库`MySQL` 5.7.15  
+// 安装MySQL  
+sudo apt-get install mysql-server mysql-client  
+// 安装MySQL++库  
+sudo apt-get install libmysql++-dev  
+3、编译器`G++` 6.2.0  
+// 安装G++  
+sudo apt-get install g++  
 
 ## 使用Make脚本
 ![此处输入图片的描述][1]
@@ -21,9 +21,9 @@ Main:Person.cpp ATM.cpp Main.cpp
 clean:
 	rm -f Main
 ```
-`make` # 编译
-`clean` # 清理
-`./Main` # 运行
+`make` # 编译  
+`clean` # 清理  
+`./Main` # 运行  
 
 ## 使用SQL脚本
 ![此处输入图片的描述][2]
@@ -54,11 +54,11 @@ CREATE TABLE tb_record
     PRIMARY KEY(id)
 );
 ```
-`mysql -uroot -p` # 回车输入密码
-`SOURCE db.sql;` # 导入数据库
-`SHOW DATABASES;` # 查看数据库
-`SHOW TABLES;` # 查看表
-`SHOW COLUMNS FROM tb_***;` # 查看列
+`mysql -uroot -p` # 回车输入密码  
+`SOURCE db.sql;` # 导入数据库  
+`SHOW DATABASES;` # 查看数据库  
+`SHOW TABLES;` # 查看表  
+`SHOW COLUMNS FROM tb_***;` # 查看列  
 
 
 ## C++重要函数
