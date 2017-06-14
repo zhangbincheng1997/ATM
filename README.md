@@ -1,5 +1,7 @@
 # ATM
 
+![此处输入图片的描述][1]
+
 ## 实验环境
 1、操作系统`Deepin` 15.4  
 // 安装Deepin  
@@ -14,10 +16,9 @@ sudo apt-get install libmysql++-dev
 sudo apt-get install g++  
 
 ## 使用Make脚本
-![此处输入图片的描述][1]
 ```
-Main:Person.cpp ATM.cpp Main.cpp
-	g++ Person.cpp ATM.cpp Main.cpp -o Main -lmysqlclient -std=c++11
+Main:Person.cpp ATM.cpp Debug.cpp Main.cpp
+	g++ Person.cpp ATM.cpp Debug.cpp Main.cpp -o Main -lmysqlclient -std=c++11
 clean:
 	rm -f Main
 ```
@@ -26,7 +27,6 @@ clean:
 `./Main` # 运行  
 
 ## 使用SQL脚本
-![此处输入图片的描述][2]
 ```
 # 创建数据库
 CREATE DATABASE ATM;
@@ -85,29 +85,11 @@ int mysql_real_query(MYSQL *mysql, const char *query, unsigned int length)
 MYSQL_RES *mysql_store_result(MYSQL *mysql)
 // 结果集的下一行
 MYSQL_ROW mysql_fetch_row(MYSQL_RES *result)
-// 释放结果内存
+// 释放结果集内存
 void mysql_free_result(MYSQL_RES *result)
 // 关闭数据库连接
 void mysql_close(MYSQL *mysql)
 ```
 
-## 主程序效果
-```
--------------------MAIN---------------------
-[-1]退出 [0]菜单
-[1]工作 [2]休息
-[3]状态 [4]银行
---------------------------------------------
-
--------------------ATM----------------------
-[-1]退出 [0]菜单
-[1]登录 [2]注册
-[3]存钱 [4]取钱
-[5]余额 [6]记录
-[7]口袋 [8]离开
---------------------------------------------
-```
-
   [1]: https://github.com/littleredhat1997/ATM/blob/master/Img/1.png
-  [2]: https://github.com/littleredhat1997/ATM/blob/master/Img/2.png
   

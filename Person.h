@@ -1,5 +1,5 @@
-#ifndef PERSON_H
-#define PERSON_H
+#ifndef _PERSON_H
+#define _PERSON_H
 
 #include <iostream>
 
@@ -13,7 +13,7 @@ class Person
 	// 工作体力
 	const int workHp = 10;
 	// 休息体力
-	const int sleepHp = 5;
+	const int sleepHp = 10;
 	// 工资
 	const int pay = 100;
 	// 体力
@@ -28,11 +28,11 @@ class Person
 	bool work();
 	// 休息
 	bool sleep();
-	// 加钱
+	// 收入
 	void addMoney(int sum);
-	// 减钱
+	// 支出
 	void subMoney(int sum);
-	// 友元
+	// 友元输出
 	friend std::ostream& operator<<(std::ostream &os, const Person *p);
 };
 

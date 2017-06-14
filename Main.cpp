@@ -1,46 +1,15 @@
 #include <iostream>
 #include <string>
-#include <memory>
+#include <memory> // 智能指针头文件
+
 #include "Person.h"
 #include "ATM.h"
+#include "Debug.h"
 using namespace std;
 
 // C++11智能指针
 shared_ptr<ATM> server(new ATM());
 shared_ptr<Person> p(new Person());
-
-//////////
-void MENU_MAIN()
-{
-    printf("-------------------MAIN---------------------\n");
-    printf("[-1]退出	    [0]菜单\n");
-    printf("[1]工作	    [2]休息\n");
-    printf("[3]状态	    [4]银行\n");
-    printf("--------------------------------------------\n");
-}
-void MENU_ATM()
-{
-    printf("-------------------ATM----------------------\n");
-    printf("[-1]退出	    [0]菜单\n");
-    printf("[1]登录	    [2]注册\n");
-    printf("[3]存钱	    [4]取钱\n");
-    printf("[5]余额	    [6]记录\n");
-    printf("[7]口袋	    [8]离开\n");
-    printf("--------------------------------------------\n");
-}
-void PRINT_LOVE()
-{
-    // 爱心图案
-    for (float y = 1.5f; y > -1.5f; y -= 0.1f) {
-	for (float x = -1.5f; x < 1.5f; x += 0.05f) {
-	    float a = x * x + y * y - 1;
-	    putchar(a * a * a - x * x * y * y * y <= 0.0f ? '*' : ' ');
-	}
-	putchar('\n');
-    }
-    printf("Bye!!!\n");
-}
-//////////
 
 int main()
 {
@@ -53,38 +22,38 @@ int main()
     //	开始主程序
     ////////////////////
 
-    int choice = 0;
-    while(scanf("%d", &choice) != EOF)
+    char choice;
+    while(scanf("%c", &choice) != EOF)
     {
 	// -1 退出
-	if(choice == -1)
-	{ PRINT_LOVE(); break; }
+	if(choice == 'q')
+	{ DEBUG(); break; }
 
 	// 在MAIN
 	if(isOn)
 	{
 	    switch(choice)
 	    {
-		case 0:
-		    // 菜单
+		case '0':
+		    // MAIN
 		    MENU_MAIN();
 		    break;
-		case 1:
+		case '1':
 		    // 工作
-		    if(p->work())   cout << "工作中......" << endl;
-		    else    cout << "体力不足!!!" << endl;
+		    if(p->work())   LOAD(), cout << "工作完毕......" << endl;
+		    else    cout << "体力下限......无法工作......" << endl;
 		    break;
-		case 2:
+		case '2':
 		    // 休息
-		    if(p->sleep())  cout << "休息中......" << endl;
-		    else    cout << "精力充沛!!!" << endl;
+		    if(p->sleep())  LOAD(), cout << "休息完毕......" << endl;
+		    else    cout << "体力上限.......无需休息......" << endl;
 		    break;
-		case 3:
+		case '3':
 		    // 状态
 		    cout << p;
 		    break;
-		case 4:
-		    // 银行
+		case '4':
+		    // ATM
 		    isOn = false;
 		    MENU_ATM();
 		    break;
@@ -97,11 +66,11 @@ int main()
 	{
 	    switch(choice)
 	    {
-		case 0:
+		case '0':
 		    // ATM
 		    MENU_ATM();
 		    break;
-		case 1:
+		case '1':
 		    {
 			// 登录
 			string username, password;
@@ -111,7 +80,7 @@ int main()
 			else	cout << "login failed!!!" << endl;
 			break;
 		    }
-		case 2:
+		case '2':
 		    {
 			// 注册
 			string username, password;
@@ -122,7 +91,7 @@ int main()
 			break;
 		    }
 		    break;
-		case 3:
+		case '3':
 		    {
 			// 存钱
 			int sum;
@@ -138,7 +107,7 @@ int main()
 			    cout << "save failed!!!" << endl;
 		    }
 		    break;
-		case 4:
+		case '4':
 		    {
 			// 取钱
 			int sum;
@@ -154,20 +123,20 @@ int main()
 			    cout << "draw failed!!!" << endl;
 		    }
 		    break;
-		case 5:
-		    // 余额
-		    server->getMoney();
+		case '5':
+		    // 查询余额
+		    server->queryMoney();
 		    break;
-		case 6:
-		    // 记录
-		    server->getRecord();
+		case '6':
+		    // 查询记录
+		    server->queryRecord();
 		    break;
-		case 7:
-		    // 金钱
-		    cout << "金钱 : " << p->getMoney() << endl;
+		case '7':
+		    // 口袋余额
+		    cout << p->getMoney() << endl;
 		    break;
-		case 8:
-		    // 离开
+		case '8':
+		    // MAIN
 		    server->logout();
 		    isOn = true;
 		    MENU_MAIN();

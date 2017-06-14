@@ -1,4 +1,4 @@
-Main:Person.cpp ATM.cpp Main.cpp
-	g++ Person.cpp ATM.cpp Main.cpp -o Main -lmysqlclient -std=c++11
+Main:Person.cpp ATM.cpp Debug.cpp Main.cpp
+	g++ Person.cpp ATM.cpp Debug.cpp Main.cpp -o Main -lmysqlclient -std=c++11
 clean:
 	rm -f Main

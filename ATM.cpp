@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <stdlib.h>
-#include <mysql/mysql.h>
+#include <mysql/mysql.h> // MySQL头文件
 #include "ATM.h"
 using namespace std;
 
@@ -25,8 +25,7 @@ ATM::~ATM()
 bool ATM::loginServer(std::string username, std::string password)
 {
     // SQL
-    string sql = "SELECT id FROM tb_user WHERE username = '"
-	+ username + "' AND password = '" + password + "';";
+    string sql = "SELECT id FROM tb_user WHERE username = '" + username + "' AND password = '" + password + "';";
     cout << sql.c_str() << endl;
 
     if(mysql_query(&mysql, sql.c_str()))
@@ -58,8 +57,7 @@ bool ATM::registerServer(std::string username, std::string password)
 	return false;
 
     // SQL2
-    string sql2 = "INSERT INTO tb_user(username, password) VALUES('"
-	+ username + "', '" + password + "');";
+    string sql2 = "INSERT INTO tb_user(username, password) VALUES('" + username + "', '" + password + "');";
     cout << sql2.c_str() << endl;
 
     return !mysql_query(&mysql, sql2.c_str());
@@ -70,19 +68,17 @@ bool ATM::saveServer(int sum)
 {
     // 未登录
     if(_uid.empty())
-    { cout << "快快登录......" << endl; return false; }
+    { cout << "尚未登录......" << endl; return false; }
 
     // SQL1
-    string sql1 = "UPDATE tb_user SET money = money + " + to_string(sum)
-	+ " WHERE id = " + _uid + ";";
+    string sql1 = "UPDATE tb_user SET money = money + " + to_string(sum) + " WHERE id = " + _uid + ";";
     cout << sql1.c_str() << endl;
 
     if(mysql_query(&mysql, sql1.c_str()))
 	cout << "MySQL failed!!!" << endl, exit(0);
 
     // SQL2
-    string sql2 = "INSERT INTO tb_record(uid, info) VALUES(" + _uid
-	+ ", '+" + to_string(sum) + "');";
+    string sql2 = "INSERT INTO tb_record(uid, info) VALUES(" + _uid + ", '+" + to_string(sum) + "');";
     cout << sql2.c_str() << endl;
 
     return !mysql_query(&mysql, sql2.c_str());
@@ -93,29 +89,28 @@ bool ATM::drawServer(int sum)
 {
     // 未登录
     if(_uid.empty())
-    { cout << "快快登录......" << endl; return false; }
+    { cout << "尚未登录......" << endl; return false; }
 
     // SQL1
-    string sql1 = "UPDATE tb_user SET money = money - " + to_string(sum)
-	+ " WHERE id = " + _uid + ";";
+    string sql1 = "UPDATE tb_user SET money = money - " + to_string(sum) + " WHERE id = " + _uid + ";";
     cout << sql1.c_str() << std::endl;
 
     if(mysql_query(&mysql, sql1.c_str()))
 	cout << "MySQL failed!!!" << endl, exit(0);
 
     // SQL2
-    string sql2 = "INSERT INTO tb_record(uid, info) VALUES(" + _uid
-	+ ", '-" + to_string(sum) + "');";
+    string sql2 = "INSERT INTO tb_record(uid, info) VALUES(" + _uid + ", '-" + to_string(sum) + "');";
     cout << sql2.c_str() << endl;
 
     return !mysql_query(&mysql, sql2.c_str());
 }
 
-// 余额
-void ATM::getMoney()
+// 查询余额
+void ATM::queryMoney()
 {
     // 未登录
-    if(_uid.empty()) return;
+    if(_uid.empty())
+	cout << "尚未登录......" << endl;
 
     // SQL
     string sql = "SELECT money FROM tb_user WHERE id = " + _uid + ";";
@@ -131,17 +126,18 @@ void ATM::getMoney()
 	cout << "¥" << stoi(sql_row[0]) << endl;;
 }
 
-// 记录
-void ATM::getRecord()
+// 查询记录
+void ATM::queryRecord()
 {
     // 未登录
-    if(_uid.empty()) return;
+    if(_uid.empty())
+	cout << "尚未登录......" << endl;
 
     string sql = "SELECT info, date FROM tb_record WHERE uid = " + _uid + ";";
     cout << sql.c_str() << endl;
 
     if(mysql_query(&mysql, sql.c_str()))
-	cout << "SELECT info Failed!!!" << endl, exit(0);
+	cout << "MySQL Failed!!!" << endl, exit(0);
     sql_res = mysql_store_result(&mysql);
 
     cout << "操作\t\t时间" << endl;

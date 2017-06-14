@@ -1,5 +1,5 @@
-#ifndef ATM_H
-#define ATM_H
+#ifndef _ATM_H
+#define _ATM_H
 
 #include <string>
 #include <mysql/mysql.h>
@@ -32,10 +32,10 @@ class ATM
 	bool saveServer(int sum);
 	// 取钱
 	bool drawServer(int sum);
-	// 余额
-	void getMoney();
-	// 记录
-	void getRecord();
+	// 查询余额
+	void queryMoney();
+	// 查询记录
+	void queryRecord();
 	// 登出
 	void logout();
 };
